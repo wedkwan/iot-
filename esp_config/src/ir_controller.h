@@ -10,20 +10,22 @@ struct Comando {
   char nome[20];
   uint32_t value;
   uint16_t bits;
+  decode_type_t protocolo; 
 };
 
 void ir_init();
 void ir_loop();
 void transmitir_comando(int indice);
-void adicionarComando(const char* nome, uint32_t codigo, uint16_t bits);
+void adicionarComando(const char* nome, uint32_t codigo, uint16_t bits ,decode_type_t protocolo);
 
 
-extern Comando comandos[15];
+extern Comando comandos[10];
 extern int total_comandos;
 
 extern bool esperandoNome;
 extern char nomeDigitado[20];
 extern uint32_t comandoCapturado;
 extern uint16_t bitsCapturado;
+extern decode_type_t protocoloCapturado;
 
 #endif

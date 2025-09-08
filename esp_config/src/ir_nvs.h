@@ -6,5 +6,7 @@
 
 void salvarComandos_memoria(const Comando comandos[], int total);
 void carregarComandos_memoria(Comando comandos[], int &total);
+void apagarComandos();
+   
 
 #endif
