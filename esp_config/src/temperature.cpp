@@ -18,8 +18,8 @@ unsigned long getTimestamp() {
 
 void publicarDados() {
     StaticJsonDocument<200> doc;
-    float temperatura = 20 ;//dht.readTemperature(); // Celsius
-    float umidade = 005 ; //dht.readHumidity();
+    float temperatura = dht.readTemperature(); // Celsius
+    float umidade = dht.readHumidity();
     
     if (isnan(temperatura) || isnan(umidade)) {
         Serial.println("Falha ao ler sensor DHT");
@@ -36,7 +36,7 @@ void publicarDados() {
     serializeJson(doc, payload);
     
     Serial.println("Enviando payload para o tópico: campus/sala14/temperatura");
-    client.publish("campus/labf04/temperatura", payload);
+    client.publish("smartcampus/labf04/temperatura", payload);
     Serial.println("Payload publicado:");
     Serial.println(payload);
 }
