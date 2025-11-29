@@ -5,7 +5,7 @@
 
 // WiFi
 
-const char* mqtt_server = "192.168.18.69";
+const char* mqtt_server = "192.168.18.99";
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -48,7 +48,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
         }
 
     } else if (topicStr == "smartcampus/comandos/novo") {
-        // Espera msg no formato "nome,codigo,bits,protocolo"
         int idx1 = msg.indexOf(',');
         int idx2 = msg.indexOf(',', idx1 + 1);
         int idx3 = msg.indexOf(',', idx2 + 1);
