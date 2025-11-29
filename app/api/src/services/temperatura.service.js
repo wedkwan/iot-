@@ -2,7 +2,7 @@ import client from "../config/mqtt.js";
 import { findorcreateSala } from "../models/Sala.js";
 import { findorcreateSensor } from "../models/Sensor.js";
 import { createLeitura } from "../models/Leitura.js";
-client.subscribe("campus/+/temperatura");
+client.subscribe("smartcampus/+/temperatura");
 client.on("message",async (topic, message)=>{
     console.log("📩 Chegou mensagem MQTT no tópico:", topic);
     console.log("Mensagem bruta:", message.toString());
