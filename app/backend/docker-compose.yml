@@ -1,0 +1,78 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_smartcampus
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smartcampus
+      MYSQL_USER: smartuser
+      MYSQL_PASSWORD: smartpass
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    networks:
+      - smartcampus-network
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mqtt_broker
+    restart: always
+    ports:
+    - "0.0.0.0:1883:1883"   # Aceita de qualquer IP
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+    volumes:
+      - ./mosquitto.config:/mosquitto/config/mosquitto.conf
+    
+    networks:
+    - smartcampus-network
+
+  api:
+    build: ./api
+    container_name: smartcampus_api
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_USER: smartuser
+      DB_PASSWORD: smartpass
+      DB_NAME: smartcampus
+      DB_PORT: 3306
+      MQTT_HOST: mosquitto
+      MQTT_PORT: 1883
+    networks:
+      - smartcampus-network
+
+  worker:
+    build: ./worker
+    container_name: smartcampus_worker
+    restart: always
+    depends_on:
+      - mysql
+      - mosquitto
+    environment:
+      DB_HOST: mysql
+      DB_USER: smartuser
+      DB_PASSWORD: smartpass
+      DB_NAME: smartcampus
+      DB_PORT: 3306
+      MQTT_HOST: mosquitto
+      MQTT_PORT: 1883
+    networks:
+      - smartcampus-network
+
+networks:
+  smartcampus-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

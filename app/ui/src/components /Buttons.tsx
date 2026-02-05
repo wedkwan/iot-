@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { listar_comandos, trasmitir_comando } from "../services/services_controll";
+import { } from "react";
+import { trasmitir_comando } from "../services/services_controll";
 
 type Comando = {
   indice: string;
@@ -7,30 +7,20 @@ type Comando = {
 };
 
 export default function  Buttons() {
-  const [lista, setLista] = useState<Comando[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await listar_comandos();
-        setLista(response.data.lista); 
-      } catch (error) {
-        console.error("Erro ao carregar comandos:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+const lista : Comando [] = [{ indice : "0" , nome : "ligar" 
+}, { indice : "2" , nome : "ligar" 
+},{ indice : "1" , nome : "desligar" 
+}, { indice : "3" , nome : "temp+" 
+},{ indice : "5" , nome : "tenp-" 
+}]
 
   
   const handleClick =  ( indice : string) => {
     trasmitir_comando({indice});
-    
-    
   };
 
   return (
-    <div className="">
+    <div className="background-white p-5 rounded-lg shadow-md">
       <h2>Comandos</h2>
       {lista.map((cmd) => (
         <button 

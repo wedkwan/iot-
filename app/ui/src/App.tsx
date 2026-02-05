@@ -1,10 +1,11 @@
 import Buttons from "./components /Buttons"
+import Header from "./components /Header"
 
 
 
 export default function App() {
   return <>
-    <h1>vera</h1>
+    <Header/>
    <Buttons/>
    </>
 }
