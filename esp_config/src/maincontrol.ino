@@ -4,6 +4,7 @@
 #include "serial_interface.h"
 #include "mqtt.h"
 #include "temperature.h"
+#include "configs.h"
 
 void setup() {
   Serial.begin(115200);
@@ -21,6 +22,7 @@ void loop() {
   wifi_loop();
   ir_loop();
   mqtt_loop();
+  temperature_loop();
   
   serial_loop();
 }

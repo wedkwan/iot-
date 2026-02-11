@@ -138,7 +138,7 @@
  .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson.h \
  .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson.hpp \
  .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson/Configuration.hpp \
- src/mqtt.h \
+ src/configs.h src/mqtt.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/IPv6Address.h \
@@ -206,4 +206,6 @@
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRsend.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRutils.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h src/ir_nvs.h
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h src/ir_nvs.h \
+ src/comando.h \
+ /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h

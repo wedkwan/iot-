@@ -1,5 +1,4 @@
 #include "temperature.h"
-#include "mqtt.h"
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
@@ -18,8 +17,8 @@ unsigned long getTimestamp() {
 
 void publicarDados() {
     StaticJsonDocument<200> doc;
-    float temperatura = dht.readTemperature(); // Celsius
-    float umidade = dht.readHumidity();
+    float temperatura = 18; //dht.readTemperature();  // Celsius
+    float umidade = 60 ; //dht.readHumidity();
     
     if (isnan(temperatura) || isnan(umidade)) {
         Serial.println("Falha ao ler sensor DHT");
@@ -34,9 +33,9 @@ void publicarDados() {
     
     char payload[256];
     serializeJson(doc, payload);
-    
-    Serial.println("Enviando payload para o tópico: campus/sala14/temperatura");
-    client.publish("smartcampus/labf04/temperatura", payload);
+    String topico = "smartcampus/" + String(LOCAL) + "/temperatura";
+    Serial.println("Enviando payload para o tópico: " + topico);
+    client.publish(topico.c_str(), payload);
     Serial.println("Payload publicado:");
     Serial.println(payload);
 }

@@ -5,13 +5,10 @@
 #include <IRrecv.h>
 #include <IRsend.h>
 #include <IRutils.h>
+#include "ir_nvs.h"
+#include "comando.h"
 
-struct Comando {
-  char nome[20];
-  uint32_t value;
-  uint16_t bits;
-  decode_type_t protocolo; 
-};
+
 
 void ir_init();
 void ir_loop();

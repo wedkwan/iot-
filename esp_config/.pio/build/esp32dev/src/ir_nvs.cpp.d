@@ -133,11 +133,11 @@
  /home/ka/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
- src/ir_controller.h \
+ src/comando.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRsend.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRutils.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h \
- /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h
+ /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h \
+ src/ir_controller.h .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRsend.h

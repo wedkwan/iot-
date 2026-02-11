@@ -133,14 +133,7 @@
  /home/ka/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
- src/wifi_manager.h src/ir_controller.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRsend.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRutils.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h \
- src/serial_interface.h src/mqtt.h \
+ src/wifi_manager.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/IPv6Address.h \
@@ -201,8 +194,18 @@
  /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
- .pio/libdeps/esp32dev/PubSubClient/src/PubSubClient.h src/ir_nvs.h \
- src/temperature.h .pio/libdeps/esp32dev/DHT\ sensor\ library/DHT.h \
+ src/configs.h src/ir_controller.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRsend.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRutils.h \
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h src/ir_nvs.h \
+ src/comando.h \
+ /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h \
+ src/serial_interface.h src/mqtt.h \
+ .pio/libdeps/esp32dev/PubSubClient/src/PubSubClient.h \
  .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson.h \
  .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson.hpp \
- .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson/Configuration.hpp
+ .pio/libdeps/esp32dev/ArduinoJson/src/ArduinoJson/Configuration.hpp \
+ src/temperature.h .pio/libdeps/esp32dev/DHT\ sensor\ library/DHT.h

@@ -1,6 +1,5 @@
 #include "serial_interface.h"
-#include "ir_controller.h"
-#include "ir_nvs.h"
+
 
 void serial_init() {
   

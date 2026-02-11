@@ -194,4 +194,5 @@
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Server.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
  /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
- /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h
+ /home/ka/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
+ src/configs.h

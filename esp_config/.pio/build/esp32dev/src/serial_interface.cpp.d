@@ -139,4 +139,6 @@
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRremoteESP8266.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRsend.h \
  .pio/libdeps/esp32dev/IRremoteESP8266/src/IRutils.h \
- .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h src/ir_nvs.h
+ .pio/libdeps/esp32dev/IRremoteESP8266/src/IRrecv.h src/ir_nvs.h \
+ src/comando.h \
+ /home/ka/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h

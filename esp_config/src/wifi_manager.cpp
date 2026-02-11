@@ -1,11 +1,11 @@
 #include "wifi_manager.h"
-#include <WiFi.h>
 
 
 
 
-const char* ssid = "DTEL_KAWAN";
-const char* password = "01010111";
+
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASS; 
 
 void wifi_init() {
   WiFi.begin(ssid, password);

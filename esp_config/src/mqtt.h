@@ -8,6 +8,9 @@
 #include <PubSubClient.h>
 #include "ir_controller.h"
 #include "ir_nvs.h"
+#include <ArduinoJson.h>
+#include "configs.h"
+#include "comando.h"
 
 
 extern const char* mqtt_server;
@@ -16,5 +19,6 @@ extern PubSubClient client;
 
 void mqtt_setup();
 void mqtt_loop();
+void publicarListaComandos();
 
 #endif

@@ -1,11 +1,9 @@
-#include <WiFi.h>
-#include <PubSubClient.h>
-#include "ir_controller.h"
-#include "ir_nvs.h"
+#include "mqtt.h"
+
 
 // WiFi
 
-const char* mqtt_server = "192.168.18.99";
+const char* mqtt_server = MQTT_BROKER;
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -19,6 +17,37 @@ void mqtt_reconnect() {
   }
 }
 
+
+
+void publicarListaComandos() {
+    JsonDocument doc;
+     doc["device_id"] = DEVICE_ID;
+     doc["local"] = LOCAL;
+    JsonArray array = doc["comandos"].to<JsonArray>();
+
+    for (int i = 0; i < total_comandos; i++) {
+        JsonObject cmd = array.add<JsonObject>();
+
+        String nomeLimpo = String(comandos[i].nome);
+        nomeLimpo.replace("\r", "");
+        nomeLimpo.replace("\n", "");
+        nomeLimpo.trim();
+
+        cmd["id"] = i;
+        cmd["nome"] = nomeLimpo;
+    }
+
+    char payload[1024];
+    serializeJson(doc, payload);
+
+    client.publish("smartcampus/comandos/resposta", payload);
+    Serial.println(payload);
+}
+
+
+
+
+
 void callback(char* topic, byte* payload, unsigned int length) {
     String msg;
     for (unsigned int i = 0; i < length; i++) msg += (char)payload[i];
@@ -27,12 +56,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
     if (topicStr == "smartcampus/comandos/listar") {
         // Lista todos os comandos com índice e nome
-        String lista = "";
-        for (int i = 0; i < total_comandos; i++) {
-            lista += String(i) + ":" + String(comandos[i].nome) + ";";
-        }
-        client.publish("smartcampus/comandos/resposta", lista.c_str());
-
+        publicarListaComandos();
+        
+      
     } else if (topicStr == "smartcampus/comandos/apagar") {
         apagarComandos();
         client.publish("smartcampus/comandos/resposta", "Todos os comandos apagados.");
@@ -47,29 +73,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
             client.publish("smartcampus/comandos/resposta", "Índice inválido");
         }
 
-    } else if (topicStr == "smartcampus/comandos/novo") {
-        int idx1 = msg.indexOf(',');
-        int idx2 = msg.indexOf(',', idx1 + 1);
-        int idx3 = msg.indexOf(',', idx2 + 1);
-
-        if (idx1 != -1 && idx2 != -1 && idx3 != -1) {
-            String nome = msg.substring(0, idx1);
-            uint32_t codigo = msg.substring(idx1 + 1, idx2).toInt();
-            uint16_t bits = msg.substring(idx2 + 1, idx3).toInt();
-            decode_type_t protocolo = (decode_type_t)msg.substring(idx3 + 1).toInt();
-
-            adicionarComando(nome.c_str(), codigo, bits, protocolo);
-            client.publish("smartcampus/comandos/resposta", ("Comando adicionado: " + nome).c_str());
-        } else {
-            client.publish("smartcampus/comandos/resposta", "Formato inválido para novo comando.");
-        }
-    }
+    }  
 }
 
 
 void mqtt_setup() {
-  client.setServer(mqtt_server, 1883);
+  client.setServer(MQTT_BROKER, MQTT_PORT);
   client.setCallback(callback);
+  client.setBufferSize(2048);
 }
 
 void mqtt_loop() {
