@@ -5,7 +5,8 @@ const client = mqtt.connect(`mqtt://${process.env.MQTT_HOST || "mosquitto"}:${pr
 
 client.on("connect", () => {
   console.log("Conectado ao broker MQTT ");
-  client.subscribe("smartcampus/+/+");
+  client.subscribe["smartcampus/+/temperatura", "smartcampus/comandos/resposta"];
+  
   
 });
 

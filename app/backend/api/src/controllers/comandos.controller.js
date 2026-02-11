@@ -1,18 +1,35 @@
 import { apagarComandos, listarComandos  , retransmitirComando ,pegarComandos  } from "../services/comandos.service.js";
-import { parseListaComandos } from "../utills/perselista.js";
+import  pool  from "../config/bd.js"
 
 
 
 
 
 
-export function get_comandos(req, res) {
-  const listaBruta = pegarComandos()
-  const lista = parseListaComandos(listaBruta)
-  res.json({lista});
+export async function get_comandos(req, res) {
+  try {
+    const { sala } = req.params;
+
+    const [rows] = await pool.query(`
+      SELECT 
+        c.comandoId AS id,
+        c.nome
+      FROM comandos c
+      JOIN sensor s ON s.id = c.sensorId
+      JOIN sala sa ON sa.id = s.salaId
+      WHERE sa.nome = ?
+      ORDER BY c.comandoId ASC
+    `, [sala]);
+
+    res.json({
+      comandos: rows
+    });
+
+  } catch (err) {
+    console.log("Erro listarComandosSala:", err.message);
+    res.status(500).json({ error: err.message });
+  }
 }
-
-
 
 
 
@@ -43,6 +60,7 @@ export async function transmitir_comandos(req , res) {
         res.status(500).json({error:err.message});
     }
 }
+
 
 
 

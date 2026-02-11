@@ -35,3 +35,19 @@ CREATE TABLE consumodiario (
   UNIQUE(sensorId, data),
   FOREIGN KEY (sensorId) REFERENCES sensor(id)
 );
+
+
+
+CREATE TABLE comandos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sensorId INT NOT NULL,
+  comandoId INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  UNIQUE(sensorId, comandoId),
+
+  FOREIGN KEY (sensorid) REFERENCES sensor(id) ON DELETE CASCADE
+);
+

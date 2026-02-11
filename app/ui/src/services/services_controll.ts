@@ -1,15 +1,16 @@
 import api from "./api";
 
-export  const listar_comandos = () => {
-  return api.get('/comandos');
+
+export const listarComandosSala = (sala: string) => {
+  return api.get(`/comandos/${sala}`);
 };
 
-export const trasmitir_comando = (dados:{
+export const TrasmitirComando = (dados:{
     indice :string;
 }) => {
     return api.post('comandos/retransmitir' ,dados)
 }
 
-export const apagar_lista_comandos = ()=>{
+export const ApagarListaComandos = ()=>{
     return api.post('comandos/apagar')
 }
