@@ -35,7 +35,7 @@ A solução utiliza uma **arquitetura em camadas** para separação de responsab
 - Baixa latência e consumo otimizado
 
 ### Camada de Armazenamento
-- **PostgreSQL**: Persistência de dados
+- **MYSQL**: Persistência de dados
 - Histórico de temperatura, umidade e consumo
 - Logs de operações
 
