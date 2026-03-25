@@ -34,10 +34,8 @@ void publicarDados() {
     char payload[256];
     serializeJson(doc, payload);
     String topico = "smartcampus/" + String(LOCAL) + "/temperatura";
-    Serial.println("Enviando payload para o tópico: " + topico);
     client.publish(topico.c_str(), payload);
-    Serial.println("Payload publicado:");
-    Serial.println(payload);
+    
 }
 
 void temperature_loop() {

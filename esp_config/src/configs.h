@@ -10,7 +10,7 @@
 #define WIFI_PASS "01010111"
 
 // MQTT
-#define MQTT_BROKER "192.168.18.127"
+#define MQTT_BROKER "192.168.18.127 "
 #define MQTT_PORT 1883
 
 
