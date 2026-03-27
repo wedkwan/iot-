@@ -90,11 +90,16 @@ void ir_loop() {
     if (!esperandoNome && total_comandos < 10) {
       comandoCapturado = results.value;
       bitsCapturado = results.bits;
-      protocoloCapturado= results.decode_type;  // <-- capture o protocolo aqui
+      protocoloCapturado = results.decode_type;
+
       esperandoNome = true;
+
+      Serial.print("Protocolo: ");
+      Serial.println(typeToString(results.decode_type));
 
       Serial.print(F("Comando recebido: 0x"));
       Serial.println(comandoCapturado, HEX);
+
       Serial.println(F("Digite nome para o comando:"));
     }
     irrecv.resume();

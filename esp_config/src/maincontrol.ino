@@ -7,23 +7,25 @@
 #include "configs.h"
 
 void setup() {
+ 
   Serial.begin(115200);
+  Serial.println("Device ID: " + String(DEVICE_ID));
+  Serial.println("Local: " + String(LOCAL));
   mqtt_setup();
   wifi_init();
   ir_init();
   serial_init();
   temperature_init();
-  Serial.println("Device ID: " + String(DEVICE_ID));
-  Serial.println("Local: " + String(LOCAL));
   Serial.println("Sistema pronto!");
+  
 }
 
 void loop() {
+  serial_loop();
   wifi_loop();
-  ir_loop();
   mqtt_loop();
+  ir_loop();
   temperature_loop();
   
-  serial_loop();
 }
 

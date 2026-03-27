@@ -7,12 +7,21 @@ const char* mqtt_server = MQTT_BROKER;
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+
+
 void mqtt_reconnect() {
-  while (!client.connected()) {
+  static unsigned long lastAttempt = 0;
+
+  if (millis() - lastAttempt > 5000) {
+    lastAttempt = millis();
+
+    Serial.println("Tentando conectar MQTT...");
+
     if (client.connect("ESP32_IR")) {
-      client.subscribe("smartcampus/comandos/#");
+      Serial.println("MQTT conectado!");
+      client.subscribe("smartcampus/+/comandos/#");
     } else {
-      delay(2000);
+      Serial.println("Falha ao conectar MQTT");
     }
   }
 }
@@ -47,34 +56,47 @@ void publicarListaComandos() {
 
 
 
-
 void callback(char* topic, byte* payload, unsigned int length) {
     String msg;
     for (unsigned int i = 0; i < length; i++) msg += (char)payload[i];
 
     String topicStr = String(topic);
 
-    if (topicStr == "smartcampus/comandos/listar") {
-        // Lista todos os comandos com índice e nome
-        publicarListaComandos();
-        
-      
-    } else if (topicStr == "smartcampus/comandos/apagar") {
-        apagarComandos();
-        client.publish("smartcampus/comandos/resposta", "Todos os comandos apagados.");
+    String base = "smartcampus/" + String(LOCAL) + "/comandos/";
 
-    } else if (topicStr == "smartcampus/comandos/retransmitir") {
-        int idx = msg.toInt();
-        if (idx >= 0 && idx < total_comandos) {
-            transmitir_comando(idx);
-            String nomeComando = String(comandos[idx].nome);
-            client.publish("smartcampus/comandos/resposta", ("Comando retransmitido: " + nomeComando).c_str());
+    if (topicStr.startsWith(base)) {
+
+        String acao = topicStr.substring(base.length());
+
+        if (acao == "listar") {
+            publicarListaComandos();
+
+        } else if (acao == "apagar") {
+            apagarComandos();
+            client.publish("smartcampus/comandos/resposta",
+                           "Todos os comandos apagados.");
+
+        } else if (acao == "retransmitir") {
+            int idx = msg.toInt();
+
+            if (idx >= 0 && idx < total_comandos) {
+                transmitir_comando(idx);
+
+                String nomeComando = String(comandos[idx].nome);
+
+                client.publish("smartcampus/comandos/resposta",
+                  ("Comando retransmitido: " + nomeComando).c_str());
+            } else {
+                client.publish("smartcampus/comandos/resposta",
+                               "Índice inválido");
+            }
         } else {
-            client.publish("smartcampus/comandos/resposta", "Índice inválido");
+            Serial.println("Comando desconhecido: " + acao);
         }
-
-    }  
+    }
 }
+
+
 
 
 void mqtt_setup() {
@@ -84,6 +106,10 @@ void mqtt_setup() {
 }
 
 void mqtt_loop() {
-  if (!client.connected()) mqtt_reconnect();
+  if (WiFi.status() == WL_CONNECTED) {
+  if (!client.connected()) {
+    mqtt_reconnect();
+  }
   client.loop();
+  }
 }
