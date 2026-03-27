@@ -36,7 +36,7 @@ const BotoesControle: React.FC<BotoesControleProps> = ({ sala }) => {
     setUltimoComando(nome);
     
     try {
-      await TrasmitirComando({ indice });
+      await TrasmitirComando(sala ,{ indice });
       
       // Feedback visual temporário
       setTimeout(() => {
@@ -116,14 +116,14 @@ const BotoesControle: React.FC<BotoesControleProps> = ({ sala }) => {
               flex items-center justify-center
               min-h-[60px]
               ${
-                transmitindo === cmd.indice
+                transmitindo === cmd.id
                   ? 'bg-primary/80 text-white cursor-wait'
                   : 'bg-primary text-white hover:bg-[#267a29] hover:shadow-md'
               }
             `}
             title={`Enviar comando: ${cmd.nome}`}
           >
-            {transmitindo === cmd.indice ? (
+            {transmitindo === cmd.id ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                 Enviando...

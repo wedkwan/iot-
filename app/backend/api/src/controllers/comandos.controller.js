@@ -1,4 +1,4 @@
-import { apagarComandos, listarComandos  , retransmitirComando ,pegarComandos  } from "../services/comandos.service.js";
+import { apagarComandos, listarComandos  , retransmitirComando ,pegarComandos , esperarResposta } from "../services/comandos.service.js";
 import  pool  from "../config/bd.js"
 
 
@@ -34,12 +34,14 @@ export async function get_comandos(req, res) {
 
 
 export function listar_comandos(req , res)  {
-   listarComandos();
+   const {sala} = req.params ;
+   listarComandos(sala);
    res.json({msg: "pedido para listar comandos enviado"})
 }
 
-export async function deletar_comandos(res){
-    apagarComandos();  
+export async function deletar_comandos(req , res){
+    const {sala} = req.params ;
+    apagarComandos(sala);  
     try{
     const respostaESP = await esperarResposta("smartcampus/comandos/resposta", 5000); 
     res.json({ msg: respostaESP });
@@ -50,10 +52,11 @@ export async function deletar_comandos(res){
 }
 
 export async function transmitir_comandos(req , res) {
+    const {sala} = req.params ;
     const {indice} = req.body;
     if (indice === undefined) return res.status(400).json({error:"Índice obrigatório"});
     try {
-     retransmitirComando(indice)
+     retransmitirComando(sala ,indice)
      const resposta = await esperarResposta("smartcampus/comandos/resposta", 5000);
      res.json({msg: resposta});
     }catch(err) {

@@ -19,19 +19,19 @@ export function pegarComandos() {
 }
 
 
-export function listarComandos() {
-  client.publish("smartcampus/comandos/listar", "");
+export function listarComandos(sala) {
+  client.publish(`smartcampus/${sala}/comandos/listar`, "");
   
 }
 
-export function apagarComandos() {
-  client.publish("smartcampus/comandos/apagar", "");
+export function apagarComandos(sala) {
+  client.publish(`smartcampus/${sala}/comandos/apagar`, "");
+  
 }
 
-export function retransmitirComando(indice) {
-  client.publish("smartcampus/comandos/retransmitir", String(indice));
+export function retransmitirComando(sala , indice) {
+  client.publish(`smartcampus/${sala}/comandos/retransmitir`, String(indice));
 }
-
 
 export function esperarResposta(esp32Topic, timeout = 5000) {
   return new Promise((resolve, reject) => {

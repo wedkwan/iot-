@@ -11,10 +11,10 @@ const comandosRoutes = express.Router();
 
 
 
-comandosRoutes.post("/listar" , listar_comandos );
+comandosRoutes.post("/:sala/listar" , listar_comandos );
 comandosRoutes.get("/:sala" , get_comandos );
-comandosRoutes.post("/retransmitir" , transmitir_comandos);
-comandosRoutes.post("/apagar" , deletar_comandos)
+comandosRoutes.post("/:sala/retransmitir" , transmitir_comandos);
+comandosRoutes.post("/:sala/apagar" , deletar_comandos)
 
 
 

@@ -9,7 +9,7 @@ const Comandos: React.FC = () => {
 
   const handleApagarComandos = async () => {
     try {
-      await ApagarListaComandos();
+      await ApagarListaComandos(salaSelecionada);
       alert('Lista de comandos apagada com sucesso!');
       setMostrandoConfirmacao(false);
       // Recarregar a página para atualizar os comandos

@@ -5,12 +5,12 @@ export const listarComandosSala = (sala: string) => {
   return api.get(`/comandos/${sala}`);
 };
 
-export const TrasmitirComando = (dados:{
+export const TrasmitirComando = ( sala : string, dados:{
     indice :string;
 }) => {
-    return api.post('comandos/retransmitir' ,dados)
+    return api.post(`comandos/${sala}/retransmitir` ,dados)
 }
 
-export const ApagarListaComandos = ()=>{
-    return api.post('comandos/apagar')
+export const ApagarListaComandos = (sala: string)=>{
+    return api.post(`comandos/${sala}/apagar`)
 }
