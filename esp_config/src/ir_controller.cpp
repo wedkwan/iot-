@@ -46,6 +46,12 @@ void transmitir_comando(int indice) {
   case RC6:
     irsend.sendRC6(c.value, c.bits);
     break;
+  case COOLIX:
+    irsend.sendCOOLIX(c.value, c.bits);
+    break;
+  case COOLIX48:
+    irsend.sendCoolix48(c.value, c.bits);
+    break;
   default:
     Serial.println(F("Protocolo não suportado para transmissão."));
     break;

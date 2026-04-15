@@ -39,7 +39,7 @@ void apagarComandos() {
   }
 
   // Limpa os dados salvos na NVS
-  prefs.begin("ir-data", false); // use o mesmo namespace "ir-data" que salvar/carregar
+  prefs.begin("ir-data", false); 
   prefs.clear();                 // Apaga todas as chaves dentro desse namespace
   prefs.end();
 
