@@ -1,5 +1,5 @@
 import { apagarComandos, listarComandos  , retransmitirComando ,pegarComandos , esperarResposta } from "../services/comandos.service.js";
-import  pool  from "../config/bd.js"
+import  pool  from "../configs/db.js"
 
 
 

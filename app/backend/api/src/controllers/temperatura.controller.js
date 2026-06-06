@@ -1,4 +1,4 @@
-import pool from "./../config/bd.js"
+import pool from "../configs/db.js"
 
 export const getTemperaturaSala = async (req, res) => {
     try {
@@ -133,7 +133,7 @@ export const getClimaSala = async (req, res) => {
 
 
 
-// Função auxiliar
+
 function calcularConforto(temperatura, umidade) {
     if (!temperatura || !umidade) return 'desconhecido';
     

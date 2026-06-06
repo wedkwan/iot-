@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import "dotenv/config";
 import comandosRoutes from "./routes/comandos.routes.js";
 import temperaturasRoutes from "./routes/temperatura.routes.js";
 import umidadeRoutes from "./routes/umidade.routes.js"
@@ -15,7 +16,7 @@ app.use("/smartcampus" , salasRoutes)
 app.use("/smartcampus" , consumoRoutes)
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.API_PORT;
 
 
 app.listen(PORT, '0.0.0.0' ,() => {

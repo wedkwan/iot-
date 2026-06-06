@@ -1,5 +1,5 @@
 
-import client from "../config/mqtt.js";
+import client from "../configs/mqtt.js";
 
 let listaComandos  = ""
 let ultimaResposta = "";

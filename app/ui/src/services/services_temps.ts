@@ -22,6 +22,10 @@ export const getConsumoHoje = (sala: string) => {
   return api.get(`/${sala}/consumo/hoje`);
 };
 
+export const getConsumoHora = (sala: string) => {
+  return api.get(`/${sala}/consumo/hora`);
+}
+
 // Salas
 export const getStatusSalas = () => {
   return api.get('/salas/status');

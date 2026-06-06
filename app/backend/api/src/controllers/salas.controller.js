@@ -1,4 +1,4 @@
-import  pool  from "../config/bd.js"
+import  pool  from "../configs/db.js"
 export const getTodasSalas = async (req, res) => {
     try {
         const [rows] = await pool.query(`

@@ -6,6 +6,7 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD || "smartpass",
   database: process.env.DB_NAME || "smartcampus",
   port: process.env.DB_PORT || 3306,
+  
 });
 
 export default pool;

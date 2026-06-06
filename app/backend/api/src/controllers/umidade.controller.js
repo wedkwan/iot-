@@ -1,4 +1,4 @@
-import  pool  from "../config/bd.js";
+import  pool  from "../configs/db.js";
 
 export const getUmidadeSala = async (req, res) => {
     try {

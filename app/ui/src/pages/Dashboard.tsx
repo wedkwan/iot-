@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SalaSelector from '../components/Salaseletor';
-import { getMetricasSala } from '../services/services_temps';
+import { getMetricasSala , getConsumoSemana } from '../services/services_temps';
 import GraficoConsumo from '../components/GraficoConsumo';
 import BotoesControle from '../components/BotoesControle';
 import { TrasmitirComando } from "../services/services_controll";
@@ -17,7 +17,8 @@ const Dashboard: React.FC = () => {
   const [metricas, setMetricas] = useState<MetricasSala | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [temperatura, setTemperatura] = useState(24);
-  
+  const [consumoSemana, setConsumoSemana] = useState<{data: string, consumo_kwh: number}[]>([]);
+
   // Estados para controle do ar condicionado
   const [ligado, setLigado] = useState(true);
   const [modo, setModo] = useState<'cool' | 'heat' | 'fan'>('cool');
@@ -27,26 +28,29 @@ const Dashboard: React.FC = () => {
   const [velocidadeVentilador, setVelocidadeVentilador] = useState(2);
 
   useEffect(() => {
-    carregarMetricasSala();
-    const intervalo = setInterval(carregarMetricasSala, 30000);
+    carregarDados();
+    const intervalo = setInterval(carregarDados, 30000);
     return () => clearInterval(intervalo);
   }, [salaSelecionada]);
 
-  const carregarMetricasSala = async () => {
-    try {
-      const resposta = await getMetricasSala(salaSelecionada);
-      setMetricas(resposta.data);
-      if (resposta.data.temperatura) {
-        setTemperatura(Math.round(resposta.data.temperatura));
-      }
-    } catch (erro) {
-      console.error('Erro ao carregar métricas:', erro);
-    } finally {
-      setCarregando(false);
+  const carregarDados = async () => {
+  try {
+    const [respMetricas, respConsumo] = await Promise.all([
+      getMetricasSala(salaSelecionada),
+      getConsumoSemana(salaSelecionada)
+    ]);
+    setMetricas(respMetricas.data);
+    setConsumoSemana(respConsumo.data.dias || []);
+    if (respMetricas.data.temperatura) {
+      setTemperatura(Math.round(respMetricas.data.temperatura));
     }
-  };
+  } catch (erro) {
+    console.error('Erro ao carregar dados:', erro);
+  } finally {
+    setCarregando(false);
+  }
+};
 
-  // Funções de controle do ar condicionado
   const enviarComando = async (comando: string) => {
     try {
       const mapaComandos: Record<string, string> = {
@@ -62,7 +66,7 @@ const Dashboard: React.FC = () => {
 
       const indice = mapaComandos[comando];
       if (indice) {
-        await TrasmitirComando({ indice });
+        await TrasmitirComando(salaSelecionada ,{ indice });
         console.log(`✅ Comando ${comando} enviado para ${salaSelecionada}`);
       }
     } catch (erro) {
@@ -328,11 +332,12 @@ const Dashboard: React.FC = () => {
             <div className="flex justify-between items-start mb-6">
               <div>
                 <p className="text-text-secondary dark:text-gray-400">Consumo Diário</p>
-                <p className="text-4xl font-bold text-text-primary dark:text-white mt-1">12.5 kWh</p>
+                <p className="text-4xl font-bold text-text-primary dark:text-white mt-1">
+                  {consumoSemana.reduce((sum, d) => sum + d.consumo_kwh, 0).toFixed(2)} kWh</p>
               </div>
               <div className="text-sm text-text-secondary dark:text-gray-400">Últimos 7 Dias</div>
             </div>
-            <GraficoConsumo />
+            <GraficoConsumo data={consumoSemana} />
           </div>
         </div>
       </div>
